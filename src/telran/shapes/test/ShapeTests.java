@@ -4,7 +4,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 import org.junit.jupiter.api.Test;
 
-import telran.shapes.Rectangle;
+import telran.shapes.*;
 
 class ShapeTests {
 
@@ -17,6 +17,32 @@ class ShapeTests {
 		Rectangle.setSymbol("#");
 		displayStrings(rectangle.presentation(20));
 	}
+	
+	@Test
+	void squareTest() {
+		Rectangle square = new Square(10);
+		assertEquals(10, square.getWidth());
+		assertEquals(10, square.getHeight());
+		displayStrings(square.presentation(20));
+	}
+	
+	@Test
+	void squareLeftTriangleTest() {
+		Rectangle square = new SquareLeftTriangle(10);
+		assertEquals(10, square.getWidth());
+		assertEquals(10, square.getHeight());
+		displayStrings(square.presentation(20));
+	}
+	
+	@Test
+	void squareRightTriangleTest() {
+		Rectangle square = new SquareRightTriangle(10);
+		assertEquals(10, square.getWidth());
+		assertEquals(10, square.getHeight());
+		displayStrings(square.presentation(20));
+	}
+	
+	
 	private void displayStrings(String strings[]) {
 		for(String str: strings) {
 			System.out.println(str);

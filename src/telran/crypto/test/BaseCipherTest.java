@@ -11,7 +11,7 @@ class BaseCipherTest {
 
 	@Test
 	void BaseCipherBase2ManualTest() {
-		BaseCipher object = new BaseCipher(BaseCipher.MIN_LENGTH);		
+		BaseCipher object = new BaseCipher(2);		
 		object.setKey("01");
 		Integer number = 10;
 		String cipher = object.cipher(number);

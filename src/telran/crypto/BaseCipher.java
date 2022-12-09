@@ -1,8 +1,8 @@
 package telran.crypto;
 
 public class BaseCipher {
-	public static final Integer MIN_LENGTH = 2;
-	public static final Integer MAX_LENGTH = 93;
+	private static final Integer MIN_LENGTH = 2;
+	private static final Integer MAX_LENGTH = 93;
 	private static final char MIN_CHAR = 33;
 	private static final char MAX_CHAR = 126;
 	private String key;
@@ -10,10 +10,6 @@ public class BaseCipher {
 
 	public BaseCipher(Integer length) {
 		key = generateKey(length);
-	}
-	
-	public String getKey() {
-		return key;
 	}
 
 	public void setKey(String key) {

@@ -5,7 +5,7 @@ import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
-import telran.cryto.BaseCipher;
+import telran.crypto.BaseCipher;
 
 class BaseCipherTest {
 

@@ -1,4 +1,4 @@
-package telran.cryto;
+package telran.crypto;
 
 public class BaseCipher {
 	public static final Integer MIN_LENGTH = 2;

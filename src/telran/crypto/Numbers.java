@@ -1,4 +1,4 @@
-package telran.cryto;
+package telran.crypto;
 
 public class Numbers {
 	public static int countDigits(long number, int base) {

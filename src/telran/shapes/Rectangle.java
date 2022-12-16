@@ -1,41 +1,14 @@
 package telran.shapes;
 
-public class Rectangle {
-	public static final String SYMBOL = "*";
-	private int width;
-	private int height;
-	private static String symbol = SYMBOL;
-
-	public static String getSymbol() {
-		return symbol;
-	}
-
-	public static void setSymbol(String symbol) {
-		Rectangle.symbol = symbol;
-	}
-
+public class Rectangle extends Shape {
+	
 	public Rectangle(int width, int height) {
-		this.width = width;
-		this.height = height;
+		super(width, height);
 	}
 
-	public int getWidth() {
-		return width;
-	}
-
-	public void setWidth(int width) {
-		this.width = width;
-	}
-
-	public int getHeight() {
-		return height;
-	}
-
-	public void setHeight(int height) {
-		this.height = height;
-	}
-
+	@Override
 	public String[] presentation(int offset) {
+		int height = getHeight();
 		String result[] = new String[height];
 		String line = getLine(offset);
 		result[0] = line;
@@ -48,11 +21,13 @@ public class Rectangle {
 	}
 
 	private String getMiddleLine(int offset) {
-		return getOffset(offset) + symbol + getOffset(width - 2) + symbol;
+		String symbol = getSymbol();
+		return getOffset(offset) + symbol + getOffset(getWidth() - 2) + symbol;
 	}
 
 	protected String getLine(int offset) {
-		return getOffset(offset) + symbol.repeat(width);
+		String symbol = getSymbol();
+		return getOffset(offset) + symbol.repeat(getWidth());
 	}
 
 	protected String getOffset(int offset) {

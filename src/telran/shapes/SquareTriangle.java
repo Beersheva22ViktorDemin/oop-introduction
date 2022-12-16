@@ -9,6 +9,7 @@ public class SquareTriangle extends Square {
 		this.isLeftDiagonal = isLeftDiagonal;
 	}
 	
+	@Override
 	public String[] presentation(int offset) {
 		int height = getHeight();
 		String result[] = new String[height];

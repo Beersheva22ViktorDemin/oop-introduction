@@ -37,4 +37,14 @@ public abstract class Shape {
 	}
 	
 	public abstract String[] presentation(int offset);
+	
+
+	protected String getLine(int offset) {
+		String symbol = getSymbol();
+		return getOffset(offset) + symbol.repeat(getWidth());
+	}
+
+	protected String getOffset(int offset) {
+		return " ".repeat(offset);
+	}
 }

@@ -24,14 +24,5 @@ public class Rectangle extends Shape {
 		String symbol = getSymbol();
 		return getOffset(offset) + symbol + getOffset(getWidth() - 2) + symbol;
 	}
-
-	protected String getLine(int offset) {
-		String symbol = getSymbol();
-		return getOffset(offset) + symbol.repeat(getWidth());
-	}
-
-	protected String getOffset(int offset) {
-		return " ".repeat(offset);
-	}
-
+	
 }

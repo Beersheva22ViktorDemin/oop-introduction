@@ -22,6 +22,11 @@ public class Canvas extends Shape {
 	}
 	
 	@Override
+	public int getHeight() {
+		return direction.equals("row") ? super.getHeight() : countHeight(shapes);
+	}
+	
+	@Override
 	public String[] presentation(int offset) {
 		switch (direction) {
 		case "row":

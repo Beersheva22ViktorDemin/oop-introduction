@@ -6,7 +6,7 @@ public class MemoryOperations {
 		byte[] array = null;
 		int left = 0;
 		int right = result; //max
-		while (left < right) {			
+		while (right > left) {			
 			try {
 				array = null; //It's important to clear memory
 				array = new byte[result];
@@ -19,6 +19,6 @@ public class MemoryOperations {
 			}
 			result = ((right - left) / 2) + left;
 		}
-		return result;
+		return right;
 	}
 }

@@ -73,7 +73,7 @@ class ShapeTests {
 	void nestedCanvasTest() {
 		Canvas canvas = new Canvas(10, 4, shapes);
 		canvas.setDirection("column");
-		this.canvas.setDirection("column");
+//		this.canvas.setDirection("column");
 		canvas.setMargin(1);
 		displayStrings(canvas.presentation(2));
 	}

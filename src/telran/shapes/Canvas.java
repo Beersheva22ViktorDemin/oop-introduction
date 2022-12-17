@@ -28,6 +28,7 @@ public class Canvas extends Shape {
 	
 	@Override
 	public String[] presentation(int offset) {
+		setSameDirections();
 		switch (direction) {
 		case "row":
 			return rowPresentation(offset);
@@ -35,6 +36,14 @@ public class Canvas extends Shape {
 			return columnPresentation(offset);
 		}
 		return null;
+	}
+	
+	private void setSameDirections() {
+		for (Shape shape : shapes) {
+			if (shape instanceof Canvas) {
+				((Canvas) shape).setDirection(direction);
+			}
+		}
 	}
 
 	private String[] rowPresentation(int offset) {

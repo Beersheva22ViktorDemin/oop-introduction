@@ -5,21 +5,21 @@ import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.Test;
 
 class MemoryOperationsTest {
-	byte ar[];
+	byte[] array;
 
 	@Test
 	void maxMemoryTest() {
 		int maxMemory = MemoryOperations.getMaxAvaibleMemory();
-		ar = new byte[maxMemory];
-		ar = null;
-		boolean flException = false;
+		array = new byte[maxMemory];
+		array = null;
+		boolean flagException = false;
 		try {
-			ar = new byte[maxMemory + 1];
+			array = new byte[maxMemory + 1];
 
 		} catch (Throwable e) {
-			flException = true;
+			flagException = true;
 		}
-		assertTrue(flException);
+		assertTrue(flagException);
 	}
 
 }

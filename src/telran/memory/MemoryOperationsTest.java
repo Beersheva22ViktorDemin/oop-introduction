@@ -10,6 +10,7 @@ class MemoryOperationsTest {
 	@Test
 	void maxMemoryTest() {
 		int maxMemory = MemoryOperations.getMaxAvaibleMemory();
+		
 		array = new byte[maxMemory];
 		array = null;
 		boolean flagException = false;

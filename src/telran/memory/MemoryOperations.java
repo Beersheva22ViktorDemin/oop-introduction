@@ -3,16 +3,21 @@ package telran.memory;
 public class MemoryOperations {
 	public static int getMaxAvaibleMemory() {
 		int result = Integer.MAX_VALUE;
-		boolean running = true;
 		byte[] array = null;
-		while (running) {
+		int left = 0;
+		int right = result; //max
+		while (left < right) {			
 			try {
+				array = null; //It's important to clear memory
 				array = new byte[result];
-				running = false;
+				//too small
+				left = result + 1;
 
 			} catch (Throwable e) {
-				result /= 2;
+				//too big
+				right = result - 1;
 			}
+			result = ((right - left) / 2) + left;
 		}
 		return result;
 	}

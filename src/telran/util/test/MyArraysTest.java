@@ -24,11 +24,51 @@ class MyArraysTest {
 	}
 	
 	@Test
-	@Disabled
-	void evenOddTest() {
-		Integer numbers[] = {13, 2, -8, 47, 100, 10, 7};
-		Integer expected[] = {-8, 2, 10, 100, 47, 13, 7};
-		MyArrays.sort(numbers, new EvenOddComparator());
+	void evenOddTest() {				
+		Comparator<Integer> comparator = new EvenOddComparator();
+		Integer numbers[] = {1, 2};
+		Integer expected[] = {2, 1};
+		MyArrays.sort(numbers, comparator);
+		assertArrayEquals(expected, numbers);
+		
+		numbers = new Integer[] {1, 3};
+		expected = new Integer[] {3, 1};
+		MyArrays.sort(numbers, comparator);
+		assertArrayEquals(expected, numbers);
+		
+		numbers = new Integer[] {-1, 3};
+		expected = new Integer[] {3, -1};
+		MyArrays.sort(numbers, comparator);
+		assertArrayEquals(expected, numbers);
+		
+		numbers = new Integer[] {2, 3};
+		expected = new Integer[] {2, 3};
+		MyArrays.sort(numbers, comparator);
+		assertArrayEquals(expected, numbers);
+		
+		numbers = new Integer[] {-2, 3};
+		expected = new Integer[] {-2, 3};
+		MyArrays.sort(numbers, comparator);
+		assertArrayEquals(expected, numbers);
+		
+		numbers = new Integer[] {3, 2};
+		expected = new Integer[] {2, 3};
+		MyArrays.sort(numbers, comparator);
+		assertArrayEquals(expected, numbers);
+		
+		numbers = new Integer[] {-1, -2};
+		expected = new Integer[] {-2, -1};
+		MyArrays.sort(numbers, comparator);
+		assertArrayEquals(expected, numbers);
+		
+		numbers = new Integer[] {-1, -3};
+		expected = new Integer[] {-1, -3};
+		MyArrays.sort(numbers, comparator);
+		assertArrayEquals(expected, numbers);
+		
+		numbers = new Integer[] {13, 2, -8, 47, 100, 10, 7};
+		expected = new Integer[] {-8, 2, 10, 100, 47, 13, 7};
+		MyArrays.sort(numbers, comparator);
 		assertArrayEquals(expected, numbers);
 	}
 	

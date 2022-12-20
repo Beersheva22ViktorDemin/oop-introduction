@@ -14,8 +14,6 @@ public class MyArrays {
 		int left = 0;
 		int right = array.length - 1;
 		int middle = array.length / 2;
-		
-		;
 		while(left <= right && comparator.compare(array[left], searchedNumber) != 0) {
 			if (comparator.compare(searchedNumber, array[middle]) <= 0) {
 				right = middle - 1;

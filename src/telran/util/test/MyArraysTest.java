@@ -2,14 +2,22 @@ package telran.util.test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+import java.util.Arrays;
 import java.util.Comparator;
+import java.util.function.Predicate;
 
+import org.junit.Ignore;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 import telran.util.MyArrays;
 
 class MyArraysTest {
+	
+	Integer numbers[] = {13, 2, -8, 47, 100, 10, -7, 7};
+	String strings[] = {
+			"ab", "abm", "abmb", "abmbc"	
+		};
 
 	@Test
 	void sortTest() {
@@ -99,5 +107,20 @@ class MyArraysTest {
 		assertEquals(-1, MyArrays.binarySearch(strings, "a", comp));
 		assertEquals(-3, MyArrays.binarySearch(strings, "abma", comp));
 		assertEquals(-5, MyArrays.binarySearch(strings, "lmn", comp));
+	}
+	
+	@Test
+	void filterTest() {
+		int dividor = 2;
+		String subStr = "m";
+		Predicate<Integer> predEven = new DividorPredicate(dividor);
+		Predicate<String> predSubstr = new SubstrPredicate(subStr);
+		String expectedStr[] = {
+				 "abm", "abmb", "abmbc"	
+			};
+		Integer expectedNumbers[] ={2, -8, 100, 10};
+		assertArrayEquals(expectedStr, MyArrays.filter(strings, predSubstr));
+		assertArrayEquals(expectedNumbers, MyArrays.filter(numbers, predEven));
+		
 	}
 }

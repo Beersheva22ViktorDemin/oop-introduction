@@ -1,6 +1,8 @@
 package telran.util;
 
+import java.util.Arrays;
 import java.util.Comparator;
+import java.util.function.Predicate;
 
 public class MyArrays {
 	public static <T> void sort(T[] objects, Comparator<T> comparator) {
@@ -41,5 +43,48 @@ public class MyArrays {
 		T tmp = objects[i];
 		objects[i] = objects[j];
 		objects[j] = tmp;
+	}
+	
+	public static<T> T[] filter(T[] array, Predicate<T> predicate) {
+		int countPredicate = getCountPredicate(array, predicate);
+		
+		T[] res = Arrays.copyOf(array, countPredicate);
+		int index = 0;
+		for(T element: array) {
+			if(predicate.test(element)) {
+				res[index++] = element;
+			}
+		}
+		
+		return res;
+	}
+
+	private static <T> int getCountPredicate(T[] array, Predicate<T> predicate) {
+		int res = 0;
+		
+		for(T element: array) {
+			if(predicate.test(element)) {
+				res++;
+			}
+		}
+		
+		return res;
+	}
+	
+	public static <T> T[] removeIf(T[] array, Predicate<T> predicate) {
+		//TODO
+		//one code line with no additional methods
+		return null;
+	}
+	
+	public static <T> T[] removeRepeated(T[] array) {
+		//TODO
+		//try to write this method based on removeIf
+		return null;
+	}
+	
+	public static <T> boolean contains(T[] array, T pattern) {
+		//TODO returns true if element equaled to pattern exists in array
+		return false;
 	}
 }

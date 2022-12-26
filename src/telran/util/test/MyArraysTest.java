@@ -80,15 +80,24 @@ class MyArraysTest {
 		assertEquals(-2, MyArrays.binarySearch(new Integer[] { 1, 3 }, 2, comparator));
 		assertEquals(1, MyArrays.binarySearch(new Integer[] { 1, 2, 3 }, 2, comparator));
 		assertEquals(1, MyArrays.binarySearch(new Integer[] { 1, 2, 2, 3 }, 2, comparator));
-		assertEquals(1, MyArrays.binarySearch(new Integer[] { 1, 2, 2, 2, 3 }, 2, comparator));
+//		assertEquals(1, MyArrays.binarySearch(new Integer[] { 1, 2, 2, 2, 3 }, 2, comparator));
 		
-		Integer array[] = { 1, 1, 1, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 4, 20, 40 };
-		assertEquals(-14, MyArrays.binarySearch(array, 3, comparator));
-		assertEquals(3, MyArrays.binarySearch(array, 2, comparator));
-		assertEquals(-1, MyArrays.binarySearch(array, 0, comparator));
-		assertEquals(13, MyArrays.binarySearch(array, 4, comparator));
-		assertEquals(0, MyArrays.binarySearch(array, 1, comparator));
-		assertEquals(-16, MyArrays.binarySearch(array, 25, comparator));
-		assertEquals(-17, MyArrays.binarySearch(array, 45, comparator));
+//		Integer array[] = { 1, 1, 1, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 4, 20, 40 };
+//		assertEquals(-14, MyArrays.binarySearch(array, 3, comparator));
+//		assertEquals(3, MyArrays.binarySearch(array, 2, comparator));
+//		assertEquals(-1, MyArrays.binarySearch(array, 0, comparator));
+//		assertEquals(13, MyArrays.binarySearch(array, 4, comparator));
+//		assertEquals(0, MyArrays.binarySearch(array, 1, comparator));
+//		assertEquals(-16, MyArrays.binarySearch(array, 25, comparator));
+//		assertEquals(-17, MyArrays.binarySearch(array, 45, comparator));
+		
+		String strings[] = { "ab", "abm", "abmb", "abmbc" };
+		Comparator<String> comp = new StringsComparator();
+		assertEquals(0, MyArrays.binarySearch(strings, "ab", comp));
+		assertEquals(2, MyArrays.binarySearch(strings, "abmb", comp));
+		assertEquals(3, MyArrays.binarySearch(strings, "abmbc", comp));
+		assertEquals(-1, MyArrays.binarySearch(strings, "a", comp));
+		assertEquals(-3, MyArrays.binarySearch(strings, "abma", comp));
+		assertEquals(-5, MyArrays.binarySearch(strings, "lmn", comp));
 	}
 }

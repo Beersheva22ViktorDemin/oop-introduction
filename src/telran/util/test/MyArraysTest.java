@@ -18,7 +18,8 @@ class MyArraysTest {
 	String strings[] = {
 			"ab", "abm", "abmb", "abmbc"	
 		};
-
+	Comparator<Integer> evenOddComparator = this::evenOddCompare;
+	
 	@Test
 	void sortTest() {
 		String[] strings = { "abcd", "lmn", "zz" };
@@ -113,8 +114,8 @@ class MyArraysTest {
 	void filterTest() {
 		int dividor = 2;
 		String subStr = "m";
-		Predicate<Integer> predEven = new DividorPredicate(dividor);
-		Predicate<String> predSubstr = new SubstrPredicate(subStr);
+		Predicate<Integer> predEven = t -> t % dividor == 0;
+		Predicate<String> predSubstr = s -> s.contains(subStr);
 		String expectedStr[] = {
 				 "abm", "abmb", "abmbc"	
 			};
@@ -123,4 +124,14 @@ class MyArraysTest {
 		assertArrayEquals(expectedNumbers, MyArrays.filter(numbers, predEven));
 		
 	}
+	
+	int evenOddCompare(Integer o1, Integer o2) {
+		int remainder =  Math.abs(o1) % 2;
+		int res = remainder - Math.abs(o2) %2;
+		if (res == 0) {
+			res = remainder != 0 ? Integer.compare(o2, o1) : Integer.compare(o1, o2);
+		}
+		return res;
+	}
+
 }

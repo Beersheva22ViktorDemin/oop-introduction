@@ -72,19 +72,31 @@ public class MyArrays {
 	}
 	
 	public static <T> T[] removeIf(T[] array, Predicate<T> predicate) {
-		//TODO
 		//one code line with no additional methods
-		return null;
+		return filter(array, predicate.negate());
 	}
 	
 	public static <T> T[] removeRepeated(T[] array) {
-		//TODO
 		//try to write this method based on removeIf
-		return null;
+		T[] result = array.clone();
+		Arrays.fill(result, null);
+		int index = 0;
+		while (array.length > 0) {
+			result[index++] = array[0];
+			array = removeIf(array, t -> contains(result, t));
+		}
+		return Arrays.copyOf(result, index);
 	}
 	
 	public static <T> boolean contains(T[] array, T pattern) {
-		//TODO returns true if element equaled to pattern exists in array
+		for(T element: array) {
+			if (element != null && element.equals(pattern)) {
+				return true;
+			} else if (element == null && pattern == null) {
+				return true;
+			}
+		}
+		
 		return false;
 	}
 }

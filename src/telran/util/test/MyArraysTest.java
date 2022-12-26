@@ -133,5 +133,35 @@ class MyArraysTest {
 		}
 		return res;
 	}
+	
+	@Test
+	void removeIfTest() {
+		int dividor = 2;
+		String subStr = "m";
+		Predicate<Integer> predEven = t -> t % dividor == 0;
+		Predicate<String> predSubstr = s -> s.contains(subStr);
+		String expectedStr[] = {
+				 "ab",	
+			};
+		Integer expectedNumbers[] ={13, 47, -7, 7};
+		assertArrayEquals(expectedStr, MyArrays.removeIf(strings, predSubstr));
+		assertArrayEquals(expectedNumbers, MyArrays.removeIf(numbers, predEven));
+	}
+	
+	@Test
+	void removeRepeatedTest() {
+		Integer input[] = {100, 10, 18, 10, 20, 18};
+		Integer expected[] = {100, 10, 18, 20};
+		assertArrayEquals(expected, MyArrays.removeRepeated(input));
+	}
+	
+	@Test
+	void containsTest() {
+		assertTrue(MyArrays.contains(numbers, 13));
+		assertFalse(MyArrays.contains(numbers, -40));
+		
+		assertTrue(MyArrays.contains(strings, "abm"));
+		assertFalse(MyArrays.contains(strings, "abml"));
+	}
 
 }

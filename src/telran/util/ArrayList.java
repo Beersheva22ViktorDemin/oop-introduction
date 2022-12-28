@@ -48,11 +48,11 @@ public class ArrayList<T> implements List<T> {
 		int index = 0;
 		boolean result = false;
 		while (index < size) {
-			if (predicate.test(array[index])) {				
+			if (predicate.test(array[index])) {
 				remove(index);
 				result = true;
 			} else {
-				index++;	
+				index++;
 			}
 		}
 		return result;
@@ -73,7 +73,7 @@ public class ArrayList<T> implements List<T> {
 	public boolean contains(T pattern) {
 		return indexOf(pattern) > -1;
 	}
-	
+
 	private static boolean isEqual(Object element, Object pattern) {
 		return element == null ? element == pattern : element.equals(pattern);
 	}
@@ -104,7 +104,7 @@ public class ArrayList<T> implements List<T> {
 		T result = get(index);
 		System.arraycopy(array, index + 1, array, index, size - index);
 		size--;
-		
+
 		return result;
 	}
 
@@ -141,11 +141,11 @@ public class ArrayList<T> implements List<T> {
 		checkIndex(index);
 		array[index] = element;
 	}
-	
+
 	private void checkIndex(int index) {
-        if (index < 0 || index >= size()) {
-            throw new ArrayIndexOutOfBoundsException(index);
-        }
+		if (index < 0 || index >= size()) {
+			throw new ArrayIndexOutOfBoundsException(index);
+		}
 	}
 
 }

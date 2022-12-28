@@ -11,13 +11,13 @@ public class MyArrays {
 			length--;
 		} while (moveMaxAtEnd(objects, length, comparator));
 	}
-	
+
 	public static <T> int binarySearch(T[] arraySorted, T key, Comparator<T> comp) {
 		int left = 0;
 		int right = arraySorted.length - 1;
 		int middle = right / 2;
-		while(left <= right && !arraySorted[middle].equals(key)) {
-			if (comp.compare(key,arraySorted[middle]) < 0) {
+		while (left <= right && !arraySorted[middle].equals(key)) {
+			if (comp.compare(key, arraySorted[middle]) < 0) {
 				right = middle - 1;
 			} else {
 				left = middle + 1;
@@ -26,7 +26,7 @@ public class MyArrays {
 		}
 		return left > right ? -left - 1 : middle;
 	}
-	
+
 	private static <T> boolean moveMaxAtEnd(T[] objects, int length, Comparator<T> comparator) {
 		boolean result = false;
 		for (int i = 0; i < length; i++) {
@@ -35,7 +35,7 @@ public class MyArrays {
 				result = true;
 			}
 		}
-		
+
 		return result;
 	}
 
@@ -44,59 +44,60 @@ public class MyArrays {
 		objects[i] = objects[j];
 		objects[j] = tmp;
 	}
-	
-	public static<T> T[] filter(T[] array, Predicate<T> predicate) {
-		int countPredicate = getCountPredicate(array, predicate);
-		
-		T[] res = Arrays.copyOf(array, countPredicate);
+
+	public static <T> T[] filter(T[] array, Predicate<T> predicate) {
+
+		T[] res = Arrays.copyOf(array, array.length);
 		int index = 0;
-		for(T element: array) {
-			if(predicate.test(element)) {
+		for (T element : array) {
+			if (predicate.test(element)) {
 				res[index++] = element;
 			}
 		}
-		
-		return res;
+
+		return Arrays.copyOf(res, index);
 	}
 
-	private static <T> int getCountPredicate(T[] array, Predicate<T> predicate) {
-		int res = 0;
-		
-		for(T element: array) {
-			if(predicate.test(element)) {
-				res++;
-			}
-		}
-		
-		return res;
-	}
-	
 	public static <T> T[] removeIf(T[] array, Predicate<T> predicate) {
-		//one code line with no additional methods
+
 		return filter(array, predicate.negate());
 	}
-	
+
 	public static <T> T[] removeRepeated(T[] array) {
-		//try to write this method based on removeIf
-		T[] result = array.clone();
-		Arrays.fill(result, null);
-		int index = 0;
-		while (array.length > 0) {
-			result[index++] = array[0];
-			array = removeIf(array, t -> contains(result, t));
-		}
-		return Arrays.copyOf(result, index);
-	}
-	
-	public static <T> boolean contains(T[] array, T pattern) {
-		for(T element: array) {
-			if (element != null && element.equals(pattern)) {
-				return true;
-			} else if (element == null && pattern == null) {
-				return true;
+		final Object helper[] = new Object[array.length];
+		final int index[] = { 0 };
+		return removeIf(array, element -> {
+			boolean res = true;
+			if (!contains(helper, element)) {
+				helper[index[0]++] = element;
+				res = false;
 			}
+			return res;
+		});
+	}
+
+	public static <T> boolean contains(T[] array, T pattern) {
+		int index = 0;
+		while (index < array.length && !isEqual(array[index], pattern)) {
+			index++;
 		}
-		
-		return false;
+
+		return index < array.length;
+	}
+
+	static private boolean isEqual(Object element, Object pattern) {
+		return element == null ? element == pattern : element.equals(pattern);
+	}
+
+	public static <T> String join(T[] array, String delimiter) {
+		String res = "";
+		if (array.length > 0) {
+			StringBuilder builder = new StringBuilder(array[0].toString());
+			for (int i = 1; i < array.length; i++) {
+				builder.append(delimiter).append(array[i]);
+			}
+			res = builder.toString();
+		}
+		return res;
 	}
 }

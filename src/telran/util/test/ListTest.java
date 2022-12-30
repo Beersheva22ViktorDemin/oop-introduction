@@ -97,7 +97,9 @@ public abstract class ListTest extends CollectionTest {
 	@Test
 	@Override
 	void testIterator() {
-		// TODO
+		for (Integer element : list) {
+			assertInstanceOf(Integer.class, element);
+		}
 	}
 
 }

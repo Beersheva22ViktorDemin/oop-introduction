@@ -103,9 +103,17 @@ public class ArrayList<T> implements List<T> {
 	public T remove(int index) {
 		T result = get(index);
 		System.arraycopy(array, index + 1, array, index, size - index);
+		array[size] = null;
 		size--;
 
 		return result;
+// from lesson, may be error here, need add more tests	
+//		checkIndex(index, false);
+//		T res = array[index];
+//		size--;
+//		System.arraycopy(array, index + 1, array, index, size - index);
+//		array[size] = null;
+//		return res;
 	}
 
 	@Override

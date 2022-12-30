@@ -90,7 +90,7 @@ public class ArrayList<T> implements List<T> {
 
 	@Override
 	public void add(int index, T element) {
-		checkIndex(index);
+		checkIndex(index, true);
 		if (size == array.length) {
 			reallocate();
 		}
@@ -141,11 +141,16 @@ public class ArrayList<T> implements List<T> {
 		checkIndex(index);
 		array[index] = element;
 	}
-
+	
 	private void checkIndex(int index) {
-		if (index < 0 || index >= size()) {
-			throw new ArrayIndexOutOfBoundsException(index);
-		}
+		checkIndex(index, false);
 	}
-
+	
+	private void checkIndex(int index, boolean sizeIncluded) {
+		int sizeDelta = sizeIncluded ? 0 : 1;
+		if (index < 0 || index > size - sizeDelta) {
+			throw new IndexOutOfBoundsException(index);
+		}
+		
+	}
 }

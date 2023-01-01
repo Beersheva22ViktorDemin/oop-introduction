@@ -63,15 +63,28 @@ public class ArrayList<T> implements List<T> {
 
 	@Override
 	public boolean removeIf(Predicate<T> predicate) {
-		// FIXME - write implementation of O[N]. Hint working with only indexes
 		int oldSize = size;
-		for (int i = size - 1; i >= 0; i--) {
-			if (predicate.test(array[i])) {
-				remove(i);
+		int shift = 0;
+		
+		int index = 0;
+		while (index < size) {
+			boolean test = false;
+			test = predicate.test(array[index]);
+			if (test) {				
+				shift++;
+				size--;
+			}
+			array[index] = array[index + shift];
+			if (!test) {
+				index++;
 			}
 		}
-		return oldSize > size;
 
+		for (int i = size; i < oldSize; i++) {
+			array[i] = null;
+		}
+		
+		return oldSize > size;
 	}
 
 	@Override

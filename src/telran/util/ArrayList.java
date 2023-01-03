@@ -131,11 +131,6 @@ public class ArrayList<T> implements List<T> {
 		return index < size ? index : -1;
 	}
 
-	private boolean isEqual(T element, T pattern) {
-
-		return element == null ? element == pattern : element.equals(pattern);
-	}
-
 	@Override
 	public int lastIndexOf(T pattern) {
 		int index = size - 1;

@@ -26,4 +26,9 @@ public interface List<T> extends Collection<T> {
 
 		return indexOf(pattern) > -1;
 	}
+	
+	default boolean isEqual(T element, T pattern) {
+
+		return element == null ? element == pattern : element.equals(pattern);
+	}
 }

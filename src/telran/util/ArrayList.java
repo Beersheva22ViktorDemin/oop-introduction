@@ -12,10 +12,11 @@ public class ArrayList<T> implements List<T> {
 
 	private class ArrayListIterator implements Iterator<T> {
 		int current = 0;
-		
+
 		@Override
 		public boolean hasNext() {
-			return current < size();
+
+			return current < size;
 		}
 
 		@Override
@@ -23,7 +24,7 @@ public class ArrayList<T> implements List<T> {
 			if (!hasNext()) {
 				throw new NoSuchElementException();
 			}
-			return get(current++);
+			return array[current++];
 		}
 
 	}
@@ -64,27 +65,17 @@ public class ArrayList<T> implements List<T> {
 	@Override
 	public boolean removeIf(Predicate<T> predicate) {
 		int oldSize = size;
-		int shift = 0;
-		
-		int index = 0;
-		while (index < size) {
-			boolean test = false;
-			test = predicate.test(array[index]);
-			if (test) {				
-				shift++;
+		int tIndex = 0;
+		for (int i = 0; i < oldSize; i++) {
+			if (predicate.test(array[i])) {
 				size--;
-			}
-			array[index] = array[index + shift];
-			if (!test) {
-				index++;
+			} else {
+				array[tIndex++] = array[i];
 			}
 		}
-
-		for (int i = size; i < oldSize; i++) {
-			array[i] = null;
-		}
-		
+		Arrays.fill(array, size, oldSize, null);
 		return oldSize > size;
+
 	}
 
 	@Override
@@ -97,12 +88,6 @@ public class ArrayList<T> implements List<T> {
 	public int size() {
 
 		return size;
-	}
-
-	@Override
-	public boolean contains(T pattern) {
-
-		return indexOf(pattern) > -1;
 	}
 
 	@Override
@@ -164,14 +149,6 @@ public class ArrayList<T> implements List<T> {
 	public T get(int index) {
 		checkIndex(index, false);
 		return array[index];
-	}
-
-	private void checkIndex(int index, boolean sizeIncluded) {
-		int sizeDelta = sizeIncluded ? 0 : 1;
-		if (index < 0 || index > size - sizeDelta) {
-			throw new IndexOutOfBoundsException(index);
-		}
-
 	}
 
 	@Override

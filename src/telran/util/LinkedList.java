@@ -8,6 +8,7 @@ import java.util.function.Predicate;
 public class LinkedList<T> extends AbstractCollection<T> implements List<T> {
 	private static class Node<T> {
 		T obj;
+		boolean isVisited = false;
 		Node<T> prev;
 		Node<T> next;
 		
@@ -35,6 +36,7 @@ public class LinkedList<T> extends AbstractCollection<T> implements List<T> {
 				throw new NoSuchElementException();
 			}
 			T res = current.obj;
+			current.isVisited = true;
 			current = current.next;
 			flNext = true;
 			return res;
@@ -156,14 +158,23 @@ public class LinkedList<T> extends AbstractCollection<T> implements List<T> {
 		Node<T> node2 = getNode(index2);
 		node1.next = node2;
 	}
-	public boolean hasLoop() {
-		//TODO
+	public boolean isLoop() {
 		//method returns true if there is loop by next reference referring to a previous element
 		// use neither "size" nor "size()"
 		// no use prev filed in a Node
 		// O[N]  with no using collections
+		boolean result = false;
+		Node<T> node = head;
+		while(node != null && !result) {
+			if (node.isVisited) {
+				result = true;
+			} else {
+				node.isVisited = true;
+				node = node.next;
+			}
+		}
 		
-		return false;
+		return result;
 	}
 	/*********************************************************************************************/
 

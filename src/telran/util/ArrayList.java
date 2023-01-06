@@ -5,10 +5,9 @@ import java.util.Iterator;
 import java.util.NoSuchElementException;
 import java.util.function.Predicate;
 
-public class ArrayList<T> implements List<T> {
+public class ArrayList<T> extends AbstractCollection<T> implements List<T> {
 	static final int DEFAULT_CAPACITY = 16;
 	private T[] array;
-	private int size;
 
 	private class ArrayListIterator implements Iterator<T> {
 		int current = 0;
@@ -25,6 +24,10 @@ public class ArrayList<T> implements List<T> {
 				throw new NoSuchElementException();
 			}
 			return array[current++];
+		}
+		@Override
+		public void remove() {
+			//TODO
 		}
 
 	}
@@ -52,17 +55,6 @@ public class ArrayList<T> implements List<T> {
 	}
 
 	@Override
-	public boolean remove(T pattern) {
-		boolean res = false;
-		int index = indexOf(pattern);
-		if (index > -1) {
-			res = true;
-			remove(index);
-		}
-		return res;
-	}
-
-	@Override
 	public boolean removeIf(Predicate<T> predicate) {
 		int oldSize = size;
 		int tIndex = 0;
@@ -78,17 +70,9 @@ public class ArrayList<T> implements List<T> {
 
 	}
 
-	@Override
-	public boolean isEmpty() {
+	
 
-		return size == 0;
-	}
-
-	@Override
-	public int size() {
-
-		return size;
-	}
+	
 
 	@Override
 	public T[] toArray(T[] ar) {

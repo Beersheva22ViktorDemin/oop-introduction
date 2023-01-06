@@ -77,20 +77,6 @@ public class ArrayList<T> extends AbstractCollection<T> implements List<T> {
 
 	}
 
-	
-
-	
-
-	@Override
-	public T[] toArray(T[] ar) {
-		if (ar.length < size) {
-			ar = Arrays.copyOf(array, size);
-		}
-		System.arraycopy(array, 0, ar, 0, size);
-		Arrays.fill(ar, size, ar.length, null);
-		return ar;
-	}
-
 	@Override
 	public void add(int index, T element) {
 		checkIndex(index, true);

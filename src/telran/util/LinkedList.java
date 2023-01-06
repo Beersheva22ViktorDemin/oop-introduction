@@ -114,21 +114,6 @@ public class LinkedList<T> extends AbstractCollection<T> implements List<T> {
 		
 	}
 
-
-	@Override
-	public T[] toArray(T[] ar) {
-		if(ar.length < size) {
-			ar = Arrays.copyOf(ar, size);
-		}
-		Node<T> current = head;
-		for(int i = 0; i < size; i++) {
-			ar[i] = current.obj;
-			current = current.next;
-		}
-		Arrays.fill(ar, size, ar.length, null);
-		return ar;
-	}
-
 	@Override
 	public Iterator<T> iterator() {
 		
@@ -167,6 +152,9 @@ public class LinkedList<T> extends AbstractCollection<T> implements List<T> {
 		if (index1 < index2) {
 			throw new IllegalArgumentException();
 		}
+		Node<T> node1 = getNode(index1);
+		Node<T> node2 = getNode(index2);
+		node1.next = node2;
 	}
 	public boolean hasLoop() {
 		//TODO
@@ -174,6 +162,7 @@ public class LinkedList<T> extends AbstractCollection<T> implements List<T> {
 		// use neither "size" nor "size()"
 		// no use prev filed in a Node
 		// O[N]  with no using collections
+		
 		return false;
 	}
 	/*********************************************************************************************/

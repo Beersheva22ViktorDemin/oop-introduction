@@ -32,6 +32,7 @@ class LinkedListTest extends ListTest{
 		list.add(1);
 		list.add(2);
 		assertFalse(list.isLoop());
+		assertFalse(list.isLoop());
 		assertThrowsExactly(IllegalArgumentException.class, ()->list.setNext(0, 1));
 		list.setNext(1, 0);
 		assertTrue(list.isLoop());

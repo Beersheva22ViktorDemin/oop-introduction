@@ -8,7 +8,6 @@ import java.util.function.Predicate;
 public class LinkedList<T> extends AbstractCollection<T> implements List<T> {
 	private static class Node<T> {
 		T obj;
-		boolean isVisited = false;
 		Node<T> prev;
 		Node<T> next;
 		
@@ -36,7 +35,6 @@ public class LinkedList<T> extends AbstractCollection<T> implements List<T> {
 				throw new NoSuchElementException();
 			}
 			T res = current.obj;
-			current.isVisited = true;
 			current = current.next;
 			flNext = true;
 			return res;
@@ -164,13 +162,13 @@ public class LinkedList<T> extends AbstractCollection<T> implements List<T> {
 		// no use prev filed in a Node
 		// O[N]  with no using collections
 		boolean result = false;
-		Node<T> node = head;
-		while(node != null && !result) {
-			if (node.isVisited) {
+		Node<T> slow = head;
+		Node<T> fast = head;
+		while(fast != null && fast.next != null && !result) {
+			slow = slow.next;
+			fast = fast.next.next;
+			if (slow == fast) {
 				result = true;
-			} else {
-				node.isVisited = true;
-				node = node.next;
 			}
 		}
 		

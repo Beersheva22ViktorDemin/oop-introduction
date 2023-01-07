@@ -39,15 +39,16 @@ public interface Collection<T> extends Iterable<T> {
 	 *         of memory will be filled by null's
 	 */
 	default T[] toArray(T[] ar) {
-		if (ar.length < size()) {
-			ar = Arrays.copyOf(ar, size());
+		int size = size();
+		if (ar.length < size) {
+			ar = Arrays.copyOf(ar, size);
 		}
 		int i = 0;
 		Iterator<T> iterator = iterator();
 		while(iterator.hasNext()) {
 			ar[i++] = iterator.next();
 		}
-		Arrays.fill(ar, size(), ar.length, null);
+		Arrays.fill(ar, size, ar.length, null);
 		return ar;	
 	}
 }

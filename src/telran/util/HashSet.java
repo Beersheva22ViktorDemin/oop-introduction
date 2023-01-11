@@ -2,6 +2,7 @@ package telran.util;
 
 import java.util.Arrays;
 import java.util.Iterator;
+import java.util.NoSuchElementException;
 
 public class HashSet<T> extends AbstractCollection<T> implements Set<T> {
 	private static final int DEFAULT_TABLE_SIZE = 16;
@@ -9,21 +10,67 @@ public class HashSet<T> extends AbstractCollection<T> implements Set<T> {
 	private List<T> [] hashTable;
 	private float factor;
 	private class HashSetIterator implements Iterator<T> {
-  //TODO
+		int currentCount = 0;
+		int innerIndex = 0;
+		boolean flNext = false;
+		Iterator<T> listIterator = null;
+
 		@Override
 		public boolean hasNext() {
-			// TODO Auto-generated method stub
-			return false;
+
+			return currentCount < size;
 		}
 
 		@Override
 		public T next() {
-			// TODO Auto-generated method stub
-			return null;
+			if (!hasNext()) {
+				throw new NoSuchElementException();
+			}
+			T result = null;
+			flNext = true;
+			
+			if (listIterator != null && listIterator.hasNext()) {
+				result = listIterator.next();
+			} else {
+				if (listIterator != null && !listIterator.hasNext()) {
+					listIterator = null;
+					innerIndex++;
+				}
+				//move to next link
+				while (innerIndex < hashTable.length && hashTable[innerIndex] == null) {
+					innerIndex++;
+				}
+				if (hashTable[innerIndex] != null) {
+					listIterator = hashTable[innerIndex].iterator();
+					if (listIterator.hasNext()) {
+						result = listIterator.next();
+					} else {
+						listIterator = null;
+					}
+				} else {
+					throw new IllegalStateException();
+				}
+			}
+
+			currentCount++;
+			return result;
 		}
 		@Override
 		public void remove() {
-			//TODO
+			if(!flNext) {
+				throw new IllegalStateException();
+			}
+			
+			if (hashTable[innerIndex] != null) {
+				listIterator.remove();
+				size--;
+				currentCount--;
+				if(hashTable[innerIndex].isEmpty()) {
+					hashTable[innerIndex] = null;
+				}
+			}
+			
+			flNext = false;
 		}
 	}
 	@SuppressWarnings("unchecked")
@@ -113,23 +160,6 @@ public class HashSet<T> extends AbstractCollection<T> implements Set<T> {
 	public Iterator<T> iterator() {
 		
 		return new HashSetIterator();
-	}
-	//FIXME The following method is only for initial test
-	//after HashTableIterator implementation is done the method should be removed
-	@Override
-	public T[] toArray(T[] ar) {
-		if (ar.length < size) {
-			ar = Arrays.copyOf(ar, size);
-		}
-		int index = 0;
-		for (List<T> list: hashTable) {
-			if (list != null) {
-				for(T obj: list) {
-					ar[index++] = obj;
-				}
-			}
-		}
-		return ar;
 	}
 
 }

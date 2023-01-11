@@ -2,12 +2,15 @@ package telran.util.test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+import java.util.Arrays;
+import java.util.Iterator;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import telran.util.*;
 
-public class SetTest extends CollectionTest {
+abstract class SetTest extends CollectionTest {
 	Set<Integer> set ;
 	@BeforeEach
 	void setUp() throws Exception {
@@ -24,9 +27,27 @@ public class SetTest extends CollectionTest {
 	}
 
 	@Override
+	@Test
 	void testIterator() {
-		// TODO Auto-generated method stub
+		int size = set.size();
+		int count = 0;
+		Iterator it = set.iterator();
+		while (it.hasNext()) {
+			it.next();
+			count++;
+		}
+		assertEquals(size, count);
+		
+		it.remove();
+		assertEquals(--size, set.size());
+		assertFalse(it.hasNext());
 
+		it = set.iterator();
+		while (it.hasNext()) {
+			it.next();
+			it.remove();
+		}
+		assertEquals(0, set.size());
 	}
 
 }

@@ -28,9 +28,11 @@ public class TreeSetTest extends SetTest {
 			
 			int size = set.size();
 			int count = 0;
+			Integer prevValue = Integer.MIN_VALUE;
 			Iterator it = set.iterator();
 			while (it.hasNext()) {
-				it.next();
+				var value = it.next();
+				assertEquals(1, Integer.compare((int) value, prevValue));
 				count++;
 			}
 			assertEquals(size, count);

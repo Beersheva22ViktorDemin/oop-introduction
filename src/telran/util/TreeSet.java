@@ -18,16 +18,6 @@ public class TreeSet<T> extends AbstractCollection<T> implements Set<T> {
 
 	private class TreeSetIterator implements Iterator<T> {
 		Node<T> current = root;
-//TODO
-		/**'
-		 * Iterating in ascending order
-Finding the least element (from root to left until left is null)
-Algorithm of next
-If right reference is null, looking for first parent from right (current = current.parent)
-If right reference id not null, looking for the least element from the right subtree
-hasNext - current != null
-
-		 */
 		public TreeSetIterator() {
 			moveToMinNode();
 		}
@@ -43,11 +33,6 @@ hasNext - current != null
 				throw new NoSuchElementException();
 			}
 			T result = current.obj;
-			
-/*
- * If right reference is null, looking for first parent from right (current = current.parent)
-If right reference id not null, looking for the least element from the right subtree
- */
 			if (current.right == null) {
 				Node<T> parent = current.parent;
 				if (comp.compare(parent.obj, result) > 0) {

@@ -123,11 +123,18 @@ public class TreeSet<T> extends AbstractCollection<T> implements Set<T> {
 	}
 	
 	private boolean remove(Node<T> current, T pattern) {
+		//TODO
 		boolean result = false;
 		int compareResult = comp.compare(current.obj, pattern);
 		if (compareResult == 0) {
 			result = true;
 			//todo remove element, need rebalance tree;
+			if (isLeaf(current)) {
+				removeNode(current);
+			} else {
+				removeNode(current);
+//				current.parent.obj = current.left || current.right;
+			}
 		} else if (compareResult < 0) {
 			if (current.right != null) {
 				result = remove(current.right, pattern);
@@ -138,6 +145,22 @@ public class TreeSet<T> extends AbstractCollection<T> implements Set<T> {
 			}
 		}
 		return result;
+	}
+	
+	private void removeNode(Node<T> current) {
+		if (isLeft(current)) {
+			current.parent.left = null;
+		} else {
+			current.parent.right = null;
+		}
+	}
+
+	private boolean isLeft(Node<T> current) {
+		return comp.compare(current.obj, current.parent.obj) < 0;
+	}
+
+	private boolean isLeaf(Node<T> current) {
+		return current.left == null && current.right == null;
 	}
 
 	@Override

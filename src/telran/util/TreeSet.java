@@ -32,20 +32,29 @@ public class TreeSet<T> extends AbstractCollection<T> implements Set<T> {
 			if (!hasNext()) {
 				throw new NoSuchElementException();
 			}
+			
 			T result = current.obj;
 			if (current.right == null) {
-				Node<T> parent = current.parent;
-				if (comp.compare(parent.obj, result) > 0) {
-					current = parent;
-				} else {
-					current = null;
-				}
-				
+				current = getRightParent(current, result);
 			} else {
 				current = current.right;
 				moveToMinNode();
 			}
 			return result;
+		}
+		
+		private Node<T> getRightParent(Node<T> node, T result) {
+			Node<T> parent = node.parent;
+			Node<T> resultNode = parent;
+			if (parent != null) {
+				if (comp.compare(parent.obj, result) > 0) {
+					resultNode = parent;
+				} else {
+					resultNode = getRightParent(node.parent, result);
+				}
+			}
+			
+			return resultNode;
 		}
 		
 		private void moveToMinNode() {

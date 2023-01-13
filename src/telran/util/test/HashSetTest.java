@@ -11,9 +11,6 @@ import org.junit.jupiter.api.Test;
 import telran.util.*;
 
 public class HashSetTest extends SetTest {
-	Random random = new Random();
-	private static final int N_RUNS = 10;
-	private static final int N_NUMBERS = 100000;
 
 	@BeforeEach
 	@Override 
@@ -40,18 +37,4 @@ public class HashSetTest extends SetTest {
 		
 	}
 
-	private Integer[] getRandomArray() {
-		Integer result[] = new Integer[N_NUMBERS];
-		for(int i = 0; i < N_NUMBERS; i++) {
-			result[i] = random.nextInt();
-		}
-		return result;
-	}
-
-	private void fillSet(HashSet<Integer> set, Integer[] numbers) {
-		for(Integer num: numbers) {
-			set.add(num);
-		}
-		
-	}
 }

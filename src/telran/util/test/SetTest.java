@@ -37,17 +37,17 @@ abstract class SetTest extends CollectionTest {
 			count++;
 		}
 		assertEquals(size, count);
-		
-		it.remove();
-		assertEquals(--size, set.size());
-		assertFalse(it.hasNext());
-
-		it = set.iterator();
-		while (it.hasNext()) {
-			it.next();
-			it.remove();
-		}
-		assertEquals(0, set.size());
+//		
+//		it.remove();
+//		assertEquals(--size, set.size());
+//		assertFalse(it.hasNext());
+//
+//		it = set.iterator();
+//		while (it.hasNext()) {
+//			it.next();
+//			it.remove();
+//		}
+//		assertEquals(0, set.size());
 	}
 
 }

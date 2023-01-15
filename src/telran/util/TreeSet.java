@@ -91,32 +91,39 @@ public class TreeSet<T> extends AbstractCollection<T> implements Set<T> {
 	}
 	
 	private boolean addNode(Node<T> current, T element) {
-		boolean result = true;
-		int compareResult = comp.compare(current.obj, element);
-		if (compareResult == 0) {
-			result = false;
-		} else if (compareResult < 0) {
-			if (current.right != null) {
-				result = addNode(current.right, element);
-			} else {
-				//add new node
-				Node<T> newNode = new Node<T>(element);
-				newNode.parent = current;
-				current.right = newNode;
-				size++;
-			}
-		} else { //compareResult > 0
-			if (current.left != null) {
-				result = addNode(current.left, element);
-			} else {
-				//add new node
-				Node<T> newNode = new Node<T>(element);
-				newNode.parent = current;
-				current.left = newNode;
-				size++;
+		/*
+		 * Start from root (root - node with parent == null) current = root
+If being added node less than the current then current = current.left
+If being added node greater than the current then current = current.right
+Repeat #3/#4 until current == null, thus the previous current will be a parent of the being added object
+
+		 */
+		Node<T> previous = current.parent;
+		int compareResult = Integer.MIN_VALUE;
+		while (current != null) {
+			previous = current;
+			compareResult = comp.compare(current.obj, element);
+			if (compareResult == 0) {
+				return false;
+			} else if (compareResult < 0) {
+				current = current.right;
+			} else { //compareResult > 0
+				current = current.left;
 			}
 		}
-		return result;
+		
+		//add new node
+		Node<T> newNode = new Node<T>(element);
+		newNode.parent = previous;
+		if (compareResult < 0) {
+			previous.right = newNode;
+		} else { //compareResult > 0
+			previous.left = newNode;
+		}
+		
+		size++;
+
+		return true;
 	}
 
 	@Override
@@ -140,7 +147,9 @@ public class TreeSet<T> extends AbstractCollection<T> implements Set<T> {
 			//todo remove element, need rebalance tree;
 			if (isLeaf(current)) {
 				removeNode(current);
-			} else {
+			} 
+			
+			else {
 				removeNode(current);
 //				current.parent.obj = current.left || current.right;
 			}

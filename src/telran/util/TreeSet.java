@@ -188,18 +188,17 @@ public class TreeSet<T> extends AbstractCollection<T> implements Set<T> {
 	
 	private boolean contains(Node<T> current, T pattern) {
 		boolean result = false;
-		int compareResult = comp.compare(current.obj, pattern);
-		if (compareResult == 0) {
-			result = true;
-		} else if (compareResult < 0) {
-			if (current.right != null) {
-				result = contains(current.right, pattern);
-			}
-		} else { // compareResult > 0
-			if (current.left != null) {
-				result = contains(current.left, pattern);
+		while (current != null && result == false) {
+			int compareResult = comp.compare(current.obj, pattern);
+			if (compareResult == 0) {
+				result = true;
+			} else if (compareResult < 0) {
+				current = current.right;
+			} else { //compareResult > 0
+				current = current.left;
 			}
 		}
+		
 		return result;
 	}
 

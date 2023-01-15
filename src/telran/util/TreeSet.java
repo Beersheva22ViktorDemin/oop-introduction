@@ -45,16 +45,11 @@ public class TreeSet<T> extends AbstractCollection<T> implements Set<T> {
 		
 		private Node<T> getRightParent(Node<T> node, T result) {
 			Node<T> parent = node.parent;
-			Node<T> resultNode = parent;
-			if (parent != null) {
-				if (comp.compare(parent.obj, result) > 0) {
-					resultNode = parent;
-				} else {
-					resultNode = getRightParent(node.parent, result);
-				}
+			while (parent != null && comp.compare(parent.obj, result) < 1) {
+				parent = parent.parent;
 			}
 			
-			return resultNode;
+			return parent;
 		}
 		
 		private void moveToMinNode() {

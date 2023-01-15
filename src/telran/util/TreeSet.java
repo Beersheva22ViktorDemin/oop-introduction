@@ -91,13 +91,6 @@ public class TreeSet<T> extends AbstractCollection<T> implements Set<T> {
 	}
 	
 	private boolean addNode(Node<T> current, T element) {
-		/*
-		 * Start from root (root - node with parent == null) current = root
-If being added node less than the current then current = current.left
-If being added node greater than the current then current = current.right
-Repeat #3/#4 until current == null, thus the previous current will be a parent of the being added object
-
-		 */
 		Node<T> previous = current.parent;
 		int compareResult = Integer.MIN_VALUE;
 		while (current != null) {

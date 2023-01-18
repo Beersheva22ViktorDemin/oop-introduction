@@ -1,31 +1,34 @@
 package telran.util.test;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertArrayEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertThrowsExactly;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.Iterator;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import telran.util.*;
+import telran.util.TreeSet;
 
-public class TreeSetTest extends SetTest {
-	
+public class TreeSetTest extends SortedTest {
 	@BeforeEach
-	@Override 
+	@Override
 	void setUp() throws Exception {
-		collection = new TreeSet<>();
+		collection = new TreeSet<Integer>();
 		super.setUp();
 	}
-	
-	@Override
+
 	@Test
-	void testIterator() {
+	void myTestIterator() {
 		for (int i = 0; i < N_RUNS; i++) {
 			TreeSet set = new TreeSet();
 			Integer[] bigArray = getRandomArray();
 			fillSet(set, bigArray);
-			
+
 			int size = set.size();
 			int count = 0;
 			Integer prevValue = Integer.MIN_VALUE;
@@ -38,5 +41,4 @@ public class TreeSetTest extends SetTest {
 			assertEquals(size, count);
 		}
 	}
-
 }

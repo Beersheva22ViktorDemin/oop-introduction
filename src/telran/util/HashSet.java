@@ -10,15 +10,16 @@ public class HashSet<T> extends AbstractCollection<T> implements Set<T> {
 	private List<T> [] hashTable;
 	private float factor;
 	private class HashSetIterator implements Iterator<T> {
-		int currentCount = 0;
-		int innerIndex = 0;
+		int current = 0;
+		int indexOfList = 0;
+		T currentElement = null;
+		List<T> currentList = null;
+		Iterator<T> itList = null;
 		boolean flNext = false;
-		Iterator<T> listIterator = null;
-
+		int oldSIze = size();
 		@Override
 		public boolean hasNext() {
-
-			return currentCount < size;
+			return current < oldSIze;
 		}
 
 		@Override
@@ -26,50 +27,39 @@ public class HashSet<T> extends AbstractCollection<T> implements Set<T> {
 			if (!hasNext()) {
 				throw new NoSuchElementException();
 			}
-			T result = null;
+			currentElement = nextElement();
+			current++;
 			flNext = true;
-			
-			if (listIterator != null && listIterator.hasNext()) {
-				result = listIterator.next();
-			} else {
-				if (listIterator != null && !listIterator.hasNext()) {
-					listIterator = null;
-					innerIndex++;
-				}
-				//move to next link
-				while (innerIndex < hashTable.length && hashTable[innerIndex] == null) {
-					innerIndex++;
-				}
-				if (hashTable[innerIndex] != null) {
-					listIterator = hashTable[innerIndex].iterator();
-					if (listIterator.hasNext()) {
-						result = listIterator.next();
-					} else {
-						listIterator = null;
-					}
-				} else {
-					throw new IllegalStateException();
-				}
-			}
-
-			currentCount++;
-			return result;
+			return currentElement;
 		}
+
+		private T nextElement() {
+			if (currentList == null || !itList.hasNext()) {
+				currentList = nextList();
+				itList = currentList.iterator();
+			}
+			return itList.next();
+		}
+
+		private List<T> nextList() {
+			boolean fl = false;
+			List<T> res = null;
+			while (!fl && indexOfList < hashTable.length) {
+				if (hashTable[indexOfList] != null) {
+					res = hashTable[indexOfList];
+					fl = true;
+				}
+				indexOfList++;
+			}
+			return res;
+		}
+
 		@Override
 		public void remove() {
-			if(!flNext) {
+			if (!flNext) {
 				throw new IllegalStateException();
 			}
-			
-			if (hashTable[innerIndex] != null) {
-				listIterator.remove();
-				size--;
-				currentCount--;
-				if(hashTable[innerIndex].isEmpty()) {
-					hashTable[innerIndex] = null;
-				}
-			}
-			
+			HashSet.this.remove(currentElement);
 			flNext = false;
 		}
 	}
@@ -161,5 +151,7 @@ public class HashSet<T> extends AbstractCollection<T> implements Set<T> {
 		
 		return new HashSetIterator();
 	}
+	
+	
 
 }

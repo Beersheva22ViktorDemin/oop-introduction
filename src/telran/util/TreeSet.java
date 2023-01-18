@@ -57,9 +57,7 @@ public class TreeSet<T> extends AbstractCollection<T> implements Sorted<T> {
 			}
 			
 			if (prev != null) {
-//				Node<T> next = getNextCurrent(current);
 				TreeSet.this.remove(prev);
-//				current = next;
 			}
 
 			flNext = false;

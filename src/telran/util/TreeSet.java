@@ -24,6 +24,7 @@ public class TreeSet<T> extends AbstractCollection<T> implements Sorted<T> {
 	private class TreeSetIterator implements Iterator<T> {
 		Node<T> current = root;
 		boolean flNext = false;
+		T prev = null;
 
 		TreeSetIterator() {
 			if (current != null) {
@@ -45,6 +46,7 @@ public class TreeSet<T> extends AbstractCollection<T> implements Sorted<T> {
 			T res = current.obj;
 			current = getNextCurrent(current);
 			flNext = true;
+			prev = res;
 			return res;
 		}
 		
@@ -54,10 +56,10 @@ public class TreeSet<T> extends AbstractCollection<T> implements Sorted<T> {
 				throw new IllegalStateException();
 			}
 			
-			if (current != null) {
-				Node<T> next = getNextCurrent(current);
-				TreeSet.this.remove(current.obj);
-				current = next;
+			if (prev != null) {
+//				Node<T> next = getNextCurrent(current);
+				TreeSet.this.remove(prev);
+//				current = next;
 			}
 
 			flNext = false;
@@ -146,7 +148,7 @@ public class TreeSet<T> extends AbstractCollection<T> implements Sorted<T> {
 		if (node != null && comp.compare(pattern, node.obj) == 0) {
 			if (node.left != null && node.right != null) {
 				//do magic
-				Node<T> leastNode = getLeastNode(node.right);
+				Node<T> leastNode = getMaxNode(node.left);
 				node.obj = leastNode.obj;
 				removeNodeWithOneChild(leastNode);
 			} else {
@@ -163,13 +165,18 @@ public class TreeSet<T> extends AbstractCollection<T> implements Sorted<T> {
 		if (child != null) {
 			child.parent = current.parent;
 		}
-		if (isLeft(current)) {
-			current.parent.left = child;
-		} else {
-			current.parent.right = child;
-		}
 		if (current.parent == null) {
-			root = null;
+			if (size == 1) {
+				root = null;
+			} else {
+				root = child;
+			}
+		} else {
+			if (isLeft(current)) {
+				current.parent.left = child;
+			} else {
+				current.parent.right = child;
+			}
 		}
 		current.parent = null;
 		current.left = null;
@@ -182,7 +189,7 @@ public class TreeSet<T> extends AbstractCollection<T> implements Sorted<T> {
 	}
 
 	private boolean isLeft(Node<T> current) {
-		return comp.compare(current.obj, current.parent.obj) < 0;
+		return comp.compare(current.obj, current.parent.obj) <= 0;
 	}
 
 	@Override

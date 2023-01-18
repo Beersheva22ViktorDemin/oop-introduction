@@ -23,6 +23,7 @@ public class TreeSet<T> extends AbstractCollection<T> implements Sorted<T> {
 
 	private class TreeSetIterator implements Iterator<T> {
 		Node<T> current = root;
+		boolean flNext = false;
 
 		TreeSetIterator() {
 			if (current != null) {
@@ -32,7 +33,7 @@ public class TreeSet<T> extends AbstractCollection<T> implements Sorted<T> {
 
 		@Override
 		public boolean hasNext() {
-
+			
 			return current != null;
 		}
 
@@ -43,7 +44,23 @@ public class TreeSet<T> extends AbstractCollection<T> implements Sorted<T> {
 			}
 			T res = current.obj;
 			current = getNextCurrent(current);
+			flNext = true;
 			return res;
+		}
+		
+		@Override
+		public void remove() {
+			if(!flNext) {
+				throw new IllegalStateException();
+			}
+			
+			if (current != null) {
+				Node<T> next = getNextCurrent(current);
+				TreeSet.this.remove(current.obj);
+				current = next;
+			}
+
+			flNext = false;
 		}
 
 	}

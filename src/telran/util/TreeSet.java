@@ -1,8 +1,13 @@
 package telran.util;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNull;
+
 import java.util.Comparator;
 import java.util.Iterator;
 import java.util.NoSuchElementException;
+
+import org.junit.jupiter.api.Test;
 
 public class TreeSet<T> extends AbstractCollection<T> implements Sorted<T> {
 	static private class Node<T> {
@@ -68,6 +73,13 @@ public class TreeSet<T> extends AbstractCollection<T> implements Sorted<T> {
 		}
 		return current;
 	}
+	
+	private Node<T> getMaxNode(Node<T> current) {
+		while (current.right != null) {
+			current = current.right;
+		}
+		return current;
+	}
 
 	@SuppressWarnings("unchecked")
 	public TreeSet() {
@@ -111,8 +123,49 @@ public class TreeSet<T> extends AbstractCollection<T> implements Sorted<T> {
 
 	@Override
 	public boolean remove(T pattern) {
-		// Not implemented yet
-		return false;
+		boolean result = false;
+		Node<T> node = getNode(pattern);
+		
+		if (node != null && comp.compare(pattern, node.obj) == 0) {
+			if (node.left != null && node.right != null) {
+				//do magic
+				Node<T> leastNode = getLeastNode(node.right);
+				node.obj = leastNode.obj;
+				removeNodeWithOneChild(leastNode);
+			} else {
+				removeNodeWithOneChild(node);
+			}
+			result = true;
+		}
+
+		return result;
+	}
+	
+	private void removeNodeWithOneChild(Node<T> current) {
+		Node<T> child = getChildNode(current);
+		if (child != null) {
+			child.parent = current.parent;
+		}
+		if (isLeft(current)) {
+			current.parent.left = child;
+		} else {
+			current.parent.right = child;
+		}
+		if (current.parent == null) {
+			root = null;
+		}
+		current.parent = null;
+		current.left = null;
+		current.right = null;
+		size--;
+	}
+	
+	private Node<T> getChildNode(Node<T> current) {
+		return current.left != null ? current.left : current.right;
+	}
+
+	private boolean isLeft(Node<T> current) {
+		return comp.compare(current.obj, current.parent.obj) < 0;
 	}
 
 	@Override
@@ -129,26 +182,51 @@ public class TreeSet<T> extends AbstractCollection<T> implements Sorted<T> {
 
 	@Override
 	public T floor(T element) {
-		// TODO Auto-generated method stub
-		return null;
+		Iterator<T> it = iterator();
+		T prev = null;
+		while (it.hasNext()) {
+			T current = it.next();
+			if (comp.compare(element, current) < 0) {
+				return prev;
+			}
+			prev = current;
+		}
+		
+		return prev;
 	}
 
 	@Override
 	public T ceiling(T element) {
-		// TODO Auto-generated method stub
-		return null;
+		Iterator<T> it = iterator();
+		T result = null;
+		while (it.hasNext() && result == null) {
+			T current = it.next();
+			if (comp.compare(element, current) <= 0) {
+				result = current;
+			}
+		}
+		
+		return result;
 	}
 
 	@Override
 	public T first() {
-		// TODO Auto-generated method stub
-		return null;
+		T result = null;
+		if (root != null) {
+			result = getLeastNode(root).obj;
+		}
+		
+		return result;
 	}
 
 	@Override
 	public T last() {
-		// TODO Auto-generated method stub
-		return null;
+		T result = null;
+		if (root != null) {
+			result = getMaxNode(root).obj;
+		}
+		
+		return result;
 	}
 
 }

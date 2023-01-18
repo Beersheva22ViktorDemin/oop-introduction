@@ -11,7 +11,7 @@ import org.junit.jupiter.api.Test;
 
 import telran.util.Sorted;
 
-public class SortedTest extends SetTest{
+abstract class SortedTest extends SetTest{
 	Sorted<Integer> sorted;
 	@Override
 	@BeforeEach

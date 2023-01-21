@@ -56,11 +56,28 @@ public class LinearRecursion {
 	}
 
 	public static long square(int x) {
-		// no cycles
-		// no * , / operators
-		// no additional functions
-		// no static fields
-		return 0;
+		//no cycles
+		//no * , / operators
+		//no additional functions
+		//no static fields
+		//returns x ^ 2
+		
+//		x = 0; 0;
+//		x = 1; 0 + 1 = 1;
+//		x = 2; 1 + 3 = 4;
+//		x = 3; 4 + 5 = 9;
+//		x = 4; 9 + 7 = 16;
+//		x = 5; 16 + 9 = 25;
+//		x = 6; 25 + 11 = 36;
+		long result = 0;
+		if (x < 0) {
+			x = -x;
+		}
+		if (x > 0) {
+			result = square(x - 1) + (x - 1) + (x);
+		}
+		
+		return result;
 	}
 
 	public static void reverse(int ar[]) {

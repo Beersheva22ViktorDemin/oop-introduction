@@ -62,4 +62,16 @@ public class LinearRecursionTest {
 		assertArrayEquals(expected1, ar1);
 
 	}
+	
+	@Test
+	void squareTest() {
+		assertEquals(0, square(0));
+		assertEquals(1, square(-1));
+		assertEquals(1, square(1));
+		assertEquals(4, square(2));
+		assertEquals(9, square(3));
+		assertEquals(25, square(5));
+		assertEquals(18225, square(135));
+		assertEquals(9356 * 9356, square(9356));
+	}
 }

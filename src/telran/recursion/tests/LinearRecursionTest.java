@@ -72,6 +72,24 @@ public class LinearRecursionTest {
 		assertEquals(9, square(3));
 		assertEquals(25, square(5));
 		assertEquals(18225, square(135));
-		assertEquals(9356 * 9356, square(9356));
+		assertEquals(935 * 935, square(935));
+	}
+	
+	@Test
+	void isSameStringTest() {
+		assertTrue(isSameString("", ""));
+		assertFalse(isSameString("", " "));
+		assertFalse(isSameString(" ", ""));
+		assertTrue(isSameString("qwerty", "qwerty"));
+		assertFalse(isSameString("qwerty", "asdfgh"));
+	}
+	
+	@Test
+	void isSubstringTest() {
+		assertTrue(isSubstring("qwerty", "qwerty"));
+		assertTrue(isSubstring("aqwerty", "qwerty"));
+		assertFalse(isSubstring("werty", "qwerty"));
+		assertTrue(isSubstring("aqwerty", "qwe"));
+		assertTrue(isSubstring("aqwerty", "q"));
 	}
 }

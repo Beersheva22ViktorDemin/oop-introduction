@@ -85,13 +85,50 @@ public class LinearRecursion {
 		// returns true if a given 'substr' is indeed the
 		// substring of a given`string`
 		/*
-		 * Challenges: 1. To apply only following methods of the class String: 
-		 * charAt(int ind);
-		 * String substring( int ind );
-		 * int length();
-		 * 2. No cycles;
+		 * Challenges: 1. To apply only following methods of the class String:
+		 * charAt(int ind); String substring( int ind ); int length(); 2. No cycles;
 		 */
-		return false;
+		boolean result = false;
+		int index = 0;
+		int endIndex = index + substr.length();
+		if (endIndex <= string.length()) {
+			result = isSameString(string.substring(index, index + substr.length()), substr);
+			if (result == false) {
+				index++;
+				result = isSubstring(string.substring(index, index + substr.length()), substr);
+			}
+		}
+
+		return result;
+	}
+
+	public static boolean isSameString(String string, String substr) {
+		boolean result = false;
+		int length = string.length();
+		if (substr.length() == length) {
+			result = length > 0 ? isSameChars(string, substr, 0) : true;
+		}
+		return result;
+	}
+
+	private static boolean isSameChars(String string, String substr, int index) {
+		boolean result = false;
+
+		if (index < string.length()) {
+			result = isSameChars(string, substr, index + 1);
+			if (result) {
+				if (substr.charAt(index) == string.charAt(index)) {
+					result = true;
+				} else {
+					result = false;
+				}
+			}
+		} else {
+			//end of string
+			result = true;
+		}
+
+		return result;
 	}
 
 	public static void reverse(int ar[]) {

@@ -83,7 +83,6 @@ public class LinearRecursion {
 	public static void reverse(int ar[]) {
 		// no cycles
 		// no static fields
-		// TODO reversing elements of the source array
 		reverse(0, ar.length - 1, ar);
 	}
 

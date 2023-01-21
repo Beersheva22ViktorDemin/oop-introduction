@@ -19,26 +19,26 @@ public class LinearRecursion {
 			throw new IllegalArgumentException();
 		}
 		int result = 1;
-		
+
 		if (b > 0) {
 			result = multiply(a, power(a, b - 1));
 		}
-		
+
 		return result;
 	}
 
 	public static int multiply(int a, int b) {
 		int result = 0;
-		
+
 		if (b < 0) {
 			a = -a;
 			b = -b;
 		}
-		
+
 		if (b > 0) {
 			result = a + multiply(a, b - 1);
 		}
-		
+
 		return result;
 	}
 
@@ -56,12 +56,12 @@ public class LinearRecursion {
 	}
 
 	public static long square(int x) {
-		//no cycles
-		//no * , / operators
-		//no additional functions
-		//no static fields
-		//returns x ^ 2
-		
+		// no cycles
+		// no * , / operators
+		// no additional functions
+		// no static fields
+		// returns x ^ 2
+
 //		x = 0; 0;
 //		x = 1; 0 + 1 = 1;
 //		x = 2; 1 + 3 = 4;
@@ -76,8 +76,22 @@ public class LinearRecursion {
 		if (x > 0) {
 			result = square(x - 1) + (x - 1) + (x);
 		}
-		
+
 		return result;
+	}
+
+	public static boolean isSubstring(String string, String substr) {
+		// TODO write function
+		// returns true if a given 'substr' is indeed the
+		// substring of a given`string`
+		/*
+		 * Challenges: 1. To apply only following methods of the class String: 
+		 * charAt(int ind);
+		 * String substring( int ind );
+		 * int length();
+		 * 2. No cycles;
+		 */
+		return false;
 	}
 
 	public static void reverse(int ar[]) {

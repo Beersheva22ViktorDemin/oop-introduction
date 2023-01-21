@@ -81,7 +81,6 @@ public class LinearRecursion {
 	}
 
 	public static boolean isSubstring(String string, String substr) {
-		// TODO write function
 		// returns true if a given 'substr' is indeed the
 		// substring of a given`string`
 		/*
@@ -92,10 +91,9 @@ public class LinearRecursion {
 		int index = 0;
 		int endIndex = index + substr.length();
 		if (endIndex <= string.length()) {
-			result = isSameString(string.substring(index, index + substr.length()), substr);
+			result = isSameString(string.substring(index, endIndex), substr);
 			if (result == false) {
-				index++;
-				result = isSubstring(string.substring(index, index + substr.length()), substr);
+				result = isSubstring(string.substring(++index, ++endIndex), substr);
 			}
 		}
 

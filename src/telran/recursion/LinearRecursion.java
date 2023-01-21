@@ -106,22 +106,20 @@ public class LinearRecursion {
 		boolean result = false;
 		int length = string.length();
 		if (substr.length() == length) {
-			result = length > 0 ? isSameChars(string, substr, 0) : true;
+			result = length > 0 ? isSameChars(string, substr, length - 1) : true;
 		}
 		return result;
 	}
 
 	private static boolean isSameChars(String string, String substr, int index) {
-		boolean result = false;
+		boolean result;
 
-		if (index < string.length()) {
-			result = isSameChars(string, substr, index + 1);
-			if (result) {
-				if (substr.charAt(index) == string.charAt(index)) {
-					result = true;
-				} else {
-					result = false;
-				}
+		if (index >= 0) {
+			if (substr.charAt(index) == string.charAt(index)) {
+				//then check next char
+				result = isSameChars(string, substr, index - 1);
+			} else {
+				result = false;
 			}
 		} else {
 			//end of string

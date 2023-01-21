@@ -23,6 +23,17 @@ public class LinearRecursionTest {
 		assertEquals(24 * 5 * 6, factorial(6));
 		assertEquals(24, factorial(-4));
 	}
+	
+	@Test
+	void multiplyTest() {
+		assertEquals(0, multiply(1, 0));
+		assertEquals(1, multiply(1, 1));
+		assertEquals(2, multiply(1, 2));
+		assertEquals(2, multiply(2, 1));
+		assertEquals(10, multiply(5, 2));
+		assertEquals(-10, multiply(-5, 2));
+		assertEquals(-10, multiply(5, -2));
+	}
 
 	@Test
 	void powerTest() {

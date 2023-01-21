@@ -14,9 +14,32 @@ public class LinearRecursion {
 	}
 
 	static public int power(int a, int b) {
-		// TODO
 		// your code cannot use cycles and *, / operators
-		return 0;
+		if (b < 0) {
+			throw new IllegalArgumentException();
+		}
+		int result = 1;
+		
+		if (b > 0) {
+			result = multiply(a, power(a, b - 1));
+		}
+		
+		return result;
+	}
+
+	public static int multiply(int a, int b) {
+		int result = 0;
+		
+		if (b < 0) {
+			a = -a;
+			b = -b;
+		}
+		
+		if (b > 0) {
+			result = a + multiply(a, b - 1);
+		}
+		
+		return result;
 	}
 
 	static public long sum(int ar[]) {

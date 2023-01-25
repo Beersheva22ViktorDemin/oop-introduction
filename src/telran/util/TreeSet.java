@@ -34,7 +34,7 @@ public class TreeSet<T> extends AbstractCollection<T> implements Sorted<T> {
 
 		@Override
 		public boolean hasNext() {
-			
+
 			return current != null;
 		}
 
@@ -49,13 +49,13 @@ public class TreeSet<T> extends AbstractCollection<T> implements Sorted<T> {
 			prev = res;
 			return res;
 		}
-		
+
 		@Override
 		public void remove() {
-			if(!flNext) {
+			if (!flNext) {
 				throw new IllegalStateException();
 			}
-			
+
 			if (prev != null) {
 				TreeSet.this.remove(prev);
 			}
@@ -92,7 +92,7 @@ public class TreeSet<T> extends AbstractCollection<T> implements Sorted<T> {
 		}
 		return current;
 	}
-	
+
 	private Node<T> getMaxNode(Node<T> current) {
 		while (current.right != null) {
 			current = current.right;
@@ -144,10 +144,10 @@ public class TreeSet<T> extends AbstractCollection<T> implements Sorted<T> {
 	public boolean remove(T pattern) {
 		boolean result = false;
 		Node<T> node = getNode(pattern);
-		
+
 		if (node != null && comp.compare(pattern, node.obj) == 0) {
 			if (node.left != null && node.right != null) {
-				//do magic
+				// do magic
 				Node<T> leastNode = getMaxNode(node.left);
 				node.obj = leastNode.obj;
 				removeNodeWithOneChild(leastNode);
@@ -159,7 +159,7 @@ public class TreeSet<T> extends AbstractCollection<T> implements Sorted<T> {
 
 		return result;
 	}
-	
+
 	private void removeNodeWithOneChild(Node<T> current) {
 		Node<T> child = getChildNode(current);
 		if (child != null) {
@@ -183,7 +183,7 @@ public class TreeSet<T> extends AbstractCollection<T> implements Sorted<T> {
 		current.right = null;
 		size--;
 	}
-	
+
 	private Node<T> getChildNode(Node<T> current) {
 		return current.left != null ? current.left : current.right;
 	}
@@ -215,7 +215,7 @@ public class TreeSet<T> extends AbstractCollection<T> implements Sorted<T> {
 			}
 			prev = current;
 		}
-		
+
 		return prev;
 	}
 
@@ -229,7 +229,7 @@ public class TreeSet<T> extends AbstractCollection<T> implements Sorted<T> {
 				result = current;
 			}
 		}
-		
+
 		return result;
 	}
 
@@ -239,7 +239,7 @@ public class TreeSet<T> extends AbstractCollection<T> implements Sorted<T> {
 		if (root != null) {
 			result = getLeastNode(root).obj;
 		}
-		
+
 		return result;
 	}
 
@@ -249,29 +249,33 @@ public class TreeSet<T> extends AbstractCollection<T> implements Sorted<T> {
 		if (root != null) {
 			result = getMaxNode(root).obj;
 		}
-		
+
 		return result;
 	}
-	
+
 	public void displayTreeRotated() {
 		displayTreeRotated(root, 0);
 	}
+
 	private void displayTreeRotated(Node<T> root, int level) {
 		if (root != null) {
 			displayTreeRotated(root.right, level + 1);
 			displayRoot(root, level);
 			displayTreeRotated(root.left, level + 1);
 		}
-		
+
 	}
+
 	private void displayRoot(Node<T> root, int level) {
 		System.out.printf("%s%s\n", SYMBOL.repeat(NUMBER_SYMBOLS_PER_LEVEL * level), root.obj);
-		
+
 	}
+
 	public int height() {
-		
+
 		return height(root);
 	}
+
 	private int height(Node<T> root) {
 		int res = 0;
 		if (root != null) {
@@ -279,16 +283,35 @@ public class TreeSet<T> extends AbstractCollection<T> implements Sorted<T> {
 			int heightRight = height(root.right);
 			res = Math.max(heightLeft, heightRight) + 1;
 		}
+
 		return res;
-		
 	}
+
 	public int width() {
-		// TODO Auto-generated method stub
-		return 0;
+		return width(root);
 	}
+	
+	public int width(Node<T> root) {
+		int res = 0;
+		if (root != null) {
+			if (isLeaf(root)) {
+				res++;
+			} else {
+				int widthLeft = width(root.left);
+				int widthRight = width(root.right);
+				res = widthLeft + widthRight;
+			}
+		}
+		return res;
+	}
+
+	private boolean isLeaf(Node<T> node) {
+		return node.left == node.right; //== null
+	}
+
 	public void inversion() {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 }

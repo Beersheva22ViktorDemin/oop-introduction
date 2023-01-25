@@ -65,6 +65,8 @@ public class TreeSet<T> extends AbstractCollection<T> implements Sorted<T> {
 
 	}
 
+	private static final String SYMBOL = " ";
+	private static final int NUMBER_SYMBOLS_PER_LEVEL = 3;
 	private Node<T> root;
 	private Comparator<T> comp;
 
@@ -249,6 +251,44 @@ public class TreeSet<T> extends AbstractCollection<T> implements Sorted<T> {
 		}
 		
 		return result;
+	}
+	
+	public void displayTreeRotated() {
+		displayTreeRotated(root, 0);
+	}
+	private void displayTreeRotated(Node<T> root, int level) {
+		if (root != null) {
+			displayTreeRotated(root.right, level + 1);
+			displayRoot(root, level);
+			displayTreeRotated(root.left, level + 1);
+		}
+		
+	}
+	private void displayRoot(Node<T> root, int level) {
+		System.out.printf("%s%s\n", SYMBOL.repeat(NUMBER_SYMBOLS_PER_LEVEL * level), root.obj);
+		
+	}
+	public int height() {
+		
+		return height(root);
+	}
+	private int height(Node<T> root) {
+		int res = 0;
+		if (root != null) {
+			int heightLeft = height(root.left);
+			int heightRight = height(root.right);
+			res = Math.max(heightLeft, heightRight) + 1;
+		}
+		return res;
+		
+	}
+	public int width() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+	public void inversion() {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

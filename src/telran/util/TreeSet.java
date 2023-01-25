@@ -310,8 +310,12 @@ public class TreeSet<T> extends AbstractCollection<T> implements Sorted<T> {
 	}
 
 	public void inversion() {
-		// TODO Auto-generated method stub
-
+		TreeSet<T> newTree = new TreeSet<T>(comp.reversed());
+		for (T element: this) {
+			newTree.add(element);
+		}
+		this.comp = newTree.comp;
+		this.root = newTree.root;
 	}
 
 }

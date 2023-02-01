@@ -1,7 +1,9 @@
 package telran.util;
 
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.Iterator;
+import java.util.Random;
 import java.util.function.*;
 import java.util.stream.Stream;
 import java.util.stream.StreamSupport;
@@ -61,8 +63,8 @@ public interface Collection<T> extends Iterable<T> {
 		return StreamSupport.stream(this.spliterator(), true);
 	}
 	default T[] toArrayShuffling(T[] array) {
-		//TODO
-		//return array with collection elements in shuffled order
-		return null;
+		var ar = toArray(array);
+		return (new Random()).ints(0, size()).distinct().limit(size())
+				.mapToObj(n -> ar[n]).toArray(n -> ar);
 	}
 }

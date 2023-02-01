@@ -1,11 +1,6 @@
 package telran.util.test;
 
-import static org.junit.jupiter.api.Assertions.assertArrayEquals;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertNull;
-import static org.junit.jupiter.api.Assertions.assertThrowsExactly;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 
 import java.util.Arrays;
 import java.util.Iterator;
@@ -117,6 +112,19 @@ public abstract class CollectionTest {
 			it.next();
 		}
 		assertThrowsExactly(NoSuchElementException.class, () -> it.next());
+	}
+	
+	@Test
+	void toArrayShufflingTest() {
+		Integer expected[] = Arrays.copyOf(numbers, numbers.length);
+		ar = collection.toArrayShuffling(ar);
+		for(int i = 0; i < expected.length; i++) {
+			assertNotNull(ar[i]);
+			assertNotEquals(expected[i], equals(ar[i]));
+		}
+		for(int i = expected.length; i < ar.length; i++) {
+			assertNull(ar[i]);
+		}
 	}
 
 }

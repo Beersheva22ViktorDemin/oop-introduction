@@ -8,6 +8,7 @@ import java.util.Arrays;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import telran.util.Collection;
 import telran.util.Map;
 
 abstract class MapTest {
@@ -56,6 +57,24 @@ Map<Integer, String> map;
 	}
 	
 	@Test
+	void valuesTest() {
+		Collection<String> values = map.values();
+		assertEquals(3, values.size());
+		assertTrue(values.contains("One"));
+		assertTrue(values.contains("Two"));
+		assertTrue(values.contains("Three"));
+		assertFalse(values.contains("Four"));
+	}
+	
+	@Test
+	void containsValueTest() {
+		assertTrue(map.containsValue("One"));
+		assertTrue(map.containsValue("Two"));
+		assertTrue(map.containsValue("Three"));
+		assertFalse(map.containsValue("Four"));
+	}
+	
+	@Test
 	void removeTest() {
 		assertTrue(map.containsKey(1));
 		assertEquals("One", map.remove(1));
@@ -80,5 +99,8 @@ Map<Integer, String> map;
 	void entrySetTest() {
 		assertEquals(3, map.entrySet().size());
 	}
+
+
+
 
 }

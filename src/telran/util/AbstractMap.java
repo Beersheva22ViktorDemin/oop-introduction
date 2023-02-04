@@ -1,6 +1,6 @@
 package telran.util;
 
-
+import java.util.Iterator;
 
 public abstract class AbstractMap<K, V> implements Map<K, V> {
     protected Set<Entry<K, V>> set;
@@ -63,14 +63,29 @@ public abstract class AbstractMap<K, V> implements Map<K, V> {
 
 	@Override
 	public boolean containsValue(V value) {
-		// TODO Auto-generated method stub
-		return false;
+		Iterator<Entry<K, V>> it = set.iterator();
+		boolean result = false;
+		while(it.hasNext() && !result) {
+			Entry<K, V> entry = it.next();
+			if (isEqual(entry.getValue(), value)) {
+				result = true;
+			}
+		}
+		return result;
 	}
 
 	@Override
 	public Collection<V> values() {
-		// TODO Auto-generated method stub
-		return null;
+		try {
+			@SuppressWarnings("unchecked")
+			Set<V> res = set.getClass().getConstructor().newInstance();
+			for (Entry<K, V> entry: set) {
+				res.add(entry.getValue());
+			}
+			return res;
+		} catch (Exception e) {
+			throw new IllegalStateException();
+		}
 	}
 
 	@Override
@@ -111,6 +126,11 @@ public abstract class AbstractMap<K, V> implements Map<K, V> {
 			set.remove(entry);
 		}
 		return res;
+	}
+	
+	private boolean isEqual(V element, V pattern) {
+
+		return element == null ? element == pattern : element.equals(pattern);
 	}
 
 }

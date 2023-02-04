@@ -62,9 +62,10 @@ public interface Collection<T> extends Iterable<T> {
 	default Stream<T> parallelStream() {
 		return StreamSupport.stream(this.spliterator(), true);
 	}
+	@SuppressWarnings("unchecked")
 	default T[] toArrayShuffling(T[] array) {
 		var ar = toArray(array);
-		return (new Random()).ints(0, size()).distinct().limit(size())
-				.mapToObj(n -> ar[n]).toArray(n -> ar);
+		return (T[]) (new Random()).ints(0, size()).distinct().limit(size())
+				.mapToObj(n -> ar[n]).toArray();
 	}
 }

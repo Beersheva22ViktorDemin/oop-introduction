@@ -19,8 +19,14 @@ public abstract class AbstractMap<K, V> implements Map<K, V> {
 
 	@Override
 	public V putIfAbsent(K key, V value) {
-		// TODO Auto-generated method stub
-		return null;
+		V res = null;
+		Entry<K, V> entry = set.get(new Entry<>(key, null));
+		if (entry != null) {
+			res = entry.getValue();
+		} else {
+			set.add(new Entry<>(key, value));
+		}
+		return res;
 	}
 
 	@Override
@@ -35,14 +41,24 @@ public abstract class AbstractMap<K, V> implements Map<K, V> {
 
 	@Override
 	public V getOrDefault(K key, V value) {
-		// TODO Auto-generated method stub
-		return null;
+		V res = null;
+		Entry<K, V> entry = set.get(new Entry<>(key, null));
+		if (entry != null) {
+			res = entry.getValue();
+		} else {
+			res = value;
+		}
+		return res;
 	}
 
 	@Override
 	public boolean containsKey(K key) {
-		// TODO Auto-generated method stub
-		return false;
+		boolean res = false;
+		Entry<K, V> entry = set.get(new Entry<>(key, null));
+		if (entry != null) {
+			res = true;
+		}
+		return res;
 	}
 
 	@Override
@@ -62,7 +78,9 @@ public abstract class AbstractMap<K, V> implements Map<K, V> {
 		try {
 			@SuppressWarnings("unchecked")
 			Set<K> res = set.getClass().getConstructor().newInstance();
-			//TODO complete code
+			for (Entry<K, V> entry: set) {
+				res.add(entry.getKey());
+			}
 			return res;
 		} catch (Exception e) {
 			throw new IllegalStateException();
@@ -75,7 +93,9 @@ public abstract class AbstractMap<K, V> implements Map<K, V> {
 		try {
 			@SuppressWarnings("unchecked")
 			Set<Entry<K, V>> res = set.getClass().getConstructor().newInstance();
-			//TODO complete code
+			for (Entry<K, V> entry: set) {
+				res.add(entry);
+			}
 			return res;
 		} catch (Exception e) {
 			throw new IllegalStateException();
@@ -84,8 +104,13 @@ public abstract class AbstractMap<K, V> implements Map<K, V> {
 
 	@Override
 	public V remove(K key) {
-		// TODO Auto-generated method stub
-		return null;
+		V res = null;
+		Entry<K, V> entry = set.get(new Entry<>(key, null));
+		if (entry != null) {
+			res = entry.getValue();
+			set.remove(entry);
+		}
+		return res;
 	}
 
 }

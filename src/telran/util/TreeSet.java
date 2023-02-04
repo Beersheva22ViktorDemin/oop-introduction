@@ -362,8 +362,12 @@ public class TreeSet<T> extends AbstractCollection<T> implements Sorted<T> {
 	
 	@Override
 	public T get(T pattern) {
-		// TODO Auto-generated method stub
-		return null;
+		Node<T> node = getNode(pattern);
+		T res = null;
+		if (node != null && comp.compare(pattern, node.obj) == 0) {
+			res = node.obj;
+		}
+		return res;
 	}
 
 }

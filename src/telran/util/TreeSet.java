@@ -359,5 +359,11 @@ public class TreeSet<T> extends AbstractCollection<T> implements Sorted<T> {
 		}
 		return res;
 	}
+	
+	@Override
+	public T get(T pattern) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 
 }

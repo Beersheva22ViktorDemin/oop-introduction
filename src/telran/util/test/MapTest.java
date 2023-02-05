@@ -58,8 +58,9 @@ Map<Integer, String> map;
 	
 	@Test
 	void valuesTest() {
+		map.put(4, "Three");
 		Collection<String> values = map.values();
-		assertEquals(3, values.size());
+		assertEquals(4, values.size());
 		assertTrue(values.contains("One"));
 		assertTrue(values.contains("Two"));
 		assertTrue(values.contains("Three"));
@@ -72,6 +73,9 @@ Map<Integer, String> map;
 		assertTrue(map.containsValue("Two"));
 		assertTrue(map.containsValue("Three"));
 		assertFalse(map.containsValue("Four"));
+		assertFalse(map.containsValue(null));
+		map.put(4, null);
+		assertTrue(map.containsValue(null));
 	}
 	
 	@Test

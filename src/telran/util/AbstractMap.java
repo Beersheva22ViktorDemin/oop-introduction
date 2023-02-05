@@ -63,22 +63,14 @@ public abstract class AbstractMap<K, V> implements Map<K, V> {
 
 	@Override
 	public boolean containsValue(V value) {
-		Iterator<Entry<K, V>> it = set.iterator();
-		boolean result = false;
-		while(it.hasNext() && !result) {
-			Entry<K, V> entry = it.next();
-			if (isEqual(entry.getValue(), value)) {
-				result = true;
-			}
-		}
-		return result;
+		return set.stream().anyMatch(n -> isEqual(n.getValue(), value));
 	}
 
 	@Override
 	public Collection<V> values() {
 		try {
 			@SuppressWarnings("unchecked")
-			Set<V> res = set.getClass().getConstructor().newInstance();
+			Collection<V> res = new ArrayList<V>();
 			for (Entry<K, V> entry: set) {
 				res.add(entry.getValue());
 			}

@@ -362,10 +362,9 @@ public class TreeSet<T> extends AbstractCollection<T> implements Sorted<T> {
 	
 	@Override
 	public T get(T pattern) {
-		Node<T> node = getNode(pattern);
-		T res = null;
-		if (node != null && comp.compare(pattern, node.obj) == 0) {
-			res = node.obj;
+		T res = floor(pattern);
+		if (!isEqual(res, pattern)) {
+			res = null;
 		}
 		return res;
 	}

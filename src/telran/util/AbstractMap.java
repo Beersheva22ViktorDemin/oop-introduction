@@ -18,18 +18,6 @@ public abstract class AbstractMap<K, V> implements Map<K, V> {
 	}
 
 	@Override
-	public V putIfAbsent(K key, V value) {
-		V res = null;
-		Entry<K, V> entry = set.get(new Entry<>(key, null));
-		if (entry != null) {
-			res = entry.getValue();
-		} else {
-			set.add(new Entry<>(key, value));
-		}
-		return res;
-	}
-
-	@Override
 	public V get(K key) {
 		V res = null;
 		Entry<K, V> entry = set.get(new Entry<>(key, null));
@@ -40,25 +28,8 @@ public abstract class AbstractMap<K, V> implements Map<K, V> {
 	}
 
 	@Override
-	public V getOrDefault(K key, V value) {
-		V res = null;
-		Entry<K, V> entry = set.get(new Entry<>(key, null));
-		if (entry != null) {
-			res = entry.getValue();
-		} else {
-			res = value;
-		}
-		return res;
-	}
-
-	@Override
 	public boolean containsKey(K key) {
-		boolean res = false;
-		Entry<K, V> entry = set.get(new Entry<>(key, null));
-		if (entry != null) {
-			res = true;
-		}
-		return res;
+		return set.contains(new Entry<>(key, null));
 	}
 
 	@Override
@@ -68,16 +39,9 @@ public abstract class AbstractMap<K, V> implements Map<K, V> {
 
 	@Override
 	public Collection<V> values() {
-		try {
-			@SuppressWarnings("unchecked")
-			Collection<V> res = new ArrayList<V>();
-			for (Entry<K, V> entry: set) {
-				res.add(entry.getValue());
-			}
-			return res;
-		} catch (Exception e) {
-			throw new IllegalStateException();
-		}
+		List<V> res = new ArrayList<>();
+		set.forEach(e -> res.add(e.getValue()));
+		return res;
 	}
 
 	@Override
@@ -85,9 +49,7 @@ public abstract class AbstractMap<K, V> implements Map<K, V> {
 		try {
 			@SuppressWarnings("unchecked")
 			Set<K> res = set.getClass().getConstructor().newInstance();
-			for (Entry<K, V> entry: set) {
-				res.add(entry.getKey());
-			}
+			set.forEach(e -> res.add(e.getKey()));
 			return res;
 		} catch (Exception e) {
 			throw new IllegalStateException();
@@ -100,9 +62,7 @@ public abstract class AbstractMap<K, V> implements Map<K, V> {
 		try {
 			@SuppressWarnings("unchecked")
 			Set<Entry<K, V>> res = set.getClass().getConstructor().newInstance();
-			for (Entry<K, V> entry: set) {
-				res.add(entry);
-			}
+			set.forEach(res::add);
 			return res;
 		} catch (Exception e) {
 			throw new IllegalStateException();
@@ -111,11 +71,9 @@ public abstract class AbstractMap<K, V> implements Map<K, V> {
 
 	@Override
 	public V remove(K key) {
-		V res = null;
-		Entry<K, V> entry = set.get(new Entry<>(key, null));
-		if (entry != null) {
-			res = entry.getValue();
-			set.remove(entry);
+		V res = get(key);
+		if (res != null) {
+			set.remove(new Entry<>(key, null));
 		}
 		return res;
 	}

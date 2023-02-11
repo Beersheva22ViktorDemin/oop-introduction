@@ -61,7 +61,13 @@ public interface Map<K, V> {
 	 * @return null if new entry is added
 	 * @return reference to value if entry exists
 	 */
-	V putIfAbsent(K key, V value);
+	default public V putIfAbsent(K key, V value) {
+		V res = get(key);
+		if (res == null) {
+			put(key, value);
+		}
+		return res;
+	}
 	/*********************************************************/
 	/**
 	 * 
@@ -77,7 +83,13 @@ public interface Map<K, V> {
 	 * @return a value matching a given key or the given value (second parameter)
 	 *  if no entry with the key
 	 */
-	V getOrDefault(K key, V value);
+	default public V getOrDefault(K key, V value) {
+		V res = get(key);
+		if (res == null) {
+			res = value;
+		}
+		return res;
+	}
 	/**
 	 * 
 	 * @param key

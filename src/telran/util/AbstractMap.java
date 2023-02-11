@@ -82,5 +82,17 @@ public abstract class AbstractMap<K, V> implements Map<K, V> {
 
 		return element == null ? element == pattern : element.equals(pattern);
 	}
+	
+	@Override
+	public String toString() {
+		StringBuffer result = new StringBuffer();
+		result.append("[");
+		set.forEach(element -> {
+			result.append(element.toString());
+			result.append(" ");
+		});	
+		result.append("]");
+		return result.toString();
+	}
 
 }

@@ -14,6 +14,11 @@ public class LinkedList<T> extends AbstractCollection<T> implements List<T> {
 		Node(T obj) {
 			this.obj = obj;
 		}
+
+		@Override
+		public String toString() {
+			return obj.toString();
+		}
 	}
 
 	private Node<T> head;
@@ -250,8 +255,5 @@ public class LinkedList<T> extends AbstractCollection<T> implements List<T> {
 		checkIndex(index, false);
 		Node<T> node = getNode(index);
 		node.obj = element;
-		
-
 	}
-
 }

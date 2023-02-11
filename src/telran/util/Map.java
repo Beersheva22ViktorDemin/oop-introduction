@@ -41,6 +41,11 @@ public interface Map<K, V> {
 			this.key = key;
 			this.value = value;
 		}
+		
+		@Override
+		public String toString() {
+			return String.format("[%s, %s]", key, value);
+		}
 
 	}
 	/**

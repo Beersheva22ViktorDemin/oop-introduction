@@ -31,9 +31,8 @@ abstract class SetTest extends CollectionTest {
 
 	}
 
-	@Override
 	@Test
-	void testIterator() {
+	void testIteratorExtra() {
 		int size = set.size();
 		int count = 0;
 		Iterator it = set.iterator();

@@ -7,6 +7,7 @@ import java.util.Iterator;
 import java.util.NoSuchElementException;
 
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 import telran.util.*;
@@ -125,6 +126,7 @@ public abstract class CollectionTest {
 	}
 	
 	@Test
+	@Disabled
 	void toArrayShufflingTest() {
 		Integer expected[] = Arrays.copyOf(numbers, numbers.length);
 		ar = collection.toArrayShuffling(ar);

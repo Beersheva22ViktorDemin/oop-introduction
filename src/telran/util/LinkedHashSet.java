@@ -1,79 +1,63 @@
 package telran.util;
 
 import java.util.Iterator;
-import java.util.NoSuchElementException;
+import telran.util.LinkedList.Node;
 
-public class LinkedHashSet<T> extends HashSet<T> implements Set<T> {
-	private HashMap<Integer, T> map;
-	private HashMap<T, Integer> map2;
-	Integer lastIndex = 0;
-	
-	public LinkedHashSet() {
-		super();
-		map = new HashMap<Integer, T>();
-		map2 = new HashMap<T, Integer>();
-	}
+public class LinkedHashSet<T> extends AbstractCollection<T> implements Set<T> {
+	private LinkedList<T> list = new LinkedList<>();
+	private HashMap<T, Node<T>> map = new HashMap<>();
 	
 	private class LinkedHashSetIterator implements Iterator<T> {
-		int current = 0;
-		T currentElement = null;
-		boolean flNext = false;
-		int oldSIze = getOldIndex();
+		Iterator<T> listIterator = list.iterator();
+		T currentObj = null;
 		@Override
 		public boolean hasNext() {
-			return current < oldSIze;
+
+			return listIterator.hasNext();
 		}
 
 		@Override
 		public T next() {
-			if (!hasNext()) {
-				throw new NoSuchElementException();
-			}
-			while (current < oldSIze && !map.containsKey(current)) {
-				current++;
-			}
-			currentElement = map.get(current);
-			current++;
-			while (current < oldSIze && !map.containsKey(current)) {
-				current++;
-			}
-			flNext = true;
-			return currentElement;
+			currentObj = listIterator.next();
+			return currentObj;
 		}
-
 		@Override
 		public void remove() {
-			if (!flNext) {
-				throw new IllegalStateException();
-			}
-			LinkedHashSet.this.remove(currentElement);
-			flNext = false;
-		}
-		
-		private int getOldIndex() {
-			return lastIndex;
+			listIterator.remove();
+			map.remove(currentObj);
+			size--;
 		}
 	}
 
 	@Override
 	public boolean add(T element) {
-		map.put(lastIndex, element);
-		map2.put(element, lastIndex);
-		lastIndex++;
-		return super.add(element);
+		boolean res = false;
+		if (!map.containsKey(element)) {
+			res = true;
+			list.add(element);
+			map.put(element, list.tail);
+			size++;
+		}
+		return res;
 	}
 
 	@Override
 	public boolean remove(T pattern) {
-		Integer index = map2.get(pattern);
-		map.remove(index);
-		map2.remove(pattern);
-		return super.remove(pattern);
+		boolean res = false;
+		Node<T> node = map.get(pattern);
+		if (node != null) {
+			res = true;
+			list.removeNode(node);
+			map.remove(pattern);
+			size--;
+
+		}
+		return res;
 	}
 
 	@Override
 	public boolean contains(T pattern) {
-		return super.contains(pattern);
+		return map.containsKey(pattern);
 	}
 
 	@Override
@@ -83,7 +67,8 @@ public class LinkedHashSet<T> extends HashSet<T> implements Set<T> {
 
 	@Override
 	public T get(T pattern) {
-		return super.get(pattern);
+		Node<T> node = map.get(pattern);
+		return node == null ? null : node.obj;
 	}
 
 }
